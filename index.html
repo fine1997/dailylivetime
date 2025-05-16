@@ -1,34 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="my">
 <head>
-    <style>
-        body {
-            background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .text-container {
-            text-align: center;
-            color: black;
-        }
-        .large-text {
-            font-size: 28px;  /* "နေ့လည်" အတွက် font size ကြီးထားသည် */
-            font-weight: bold;  /* စာသားကို ပိုထင်ရှားအောင် */
-        }
-        .normal-text {
-            font-size: 18px;  /* အခြားစာသားများအတွက် default size */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Time Display</title>
+
+  <style>
+    @font-face {
+      font-family: 'CustomMyanmarFont1';
+      src: url('/mnt/data/10.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'CustomMyanmarFont2';
+      src: url('/mnt/data/17.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .time-box {
+      width: 300px;
+      height: 300px;
+      border: 4px solid black;
+      background-color: white;
+      color: black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    #dayPart {
+      font-family: 'CustomMyanmarFont1', sans-serif;
+      color: #003366;
+    }
+
+    #live {
+      font-family: 'CustomMyanmarFont1', sans-serif;
+      color: red;
+    }
+
+    #time {
+      font-family: 'CustomMyanmarFont2', sans-serif;
+      color: green;
+    }
+
+    #time-second {
+      font-size: 18px;
+    }
+
+    .time-box span {
+      margin: 4px 0;
+      text-align: center;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-    <div class="text-container">
-        <div class="large-text">နေ့လည်</div>
-        <div class="normal-text">၁၂:၀၀</div>
-        <div class="normal-text">တိုက်ရိုက်</div>
-    </div>
+  <div class="time-box">
+    <span id="dayPart">အချိန်</span>
+    <span id="time"><span id="time-hour-minute">12:00</span><span id="time-second">:00</span></span>
+    <span id="live">တိုက်ရိုက်!</span>
+  </div>
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      const totalMinutes = hours * 60 + minutes;
+
+      let dayPart = '';
+      if (totalMinutes >= 0 && totalMinutes <= 709) {
+        dayPart = 'မနက်';
+      } else if (totalMinutes >= 720 && totalMinutes <= 930) {
+        dayPart = 'နေ့လယ်';
+      } else if (totalMinutes >= 931 && totalMinutes <= 1109) {
+        dayPart = 'ညနေ';
+      } else if (totalMinutes >= 1140 && totalMinutes <= 1439) {
+        dayPart = 'ည';
+      }
+
+      const displayHour = hours % 12 || 12;
+      const displayMinute = minutes.toString().padStart(2, '0');
+      const displaySecond = seconds.toString().padStart(2, '0');
+
+      document.getElementById('dayPart').textContent = dayPart;
+      document.getElementById('time-hour-minute').textContent = `${displayHour}:${displayMinute}`;
+      document.getElementById('time-second').textContent = `:${displaySecond}`;
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+  </script>
 </body>
 </html>
