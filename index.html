@@ -28,11 +28,11 @@
     .time-box {
       width: 320px;
       height: auto;
-      padding: 10px;
-      background-color: white; /* semi-transparent */
-      border: 3px solid rgba(0, 0, 0, 0.2);
+      padding: 10px 20px;
+      background-color: #FFFFFF; /* Bright white */
+      border: 3px solid #E0E0E0; /* Light gray border */
       border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* Strong shadow for contrast */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -75,7 +75,9 @@
 <body>
   <div class="time-box">
     <span id="dayPart">အချိန်</span>
-    <span id="time"><span id="time-hour-minute">12:00</span><span id="time-second">:00</span></span>
+    <span id="time">
+      <span id="time-hour-minute">12:00</span><span id="time-second">:00</span>
+    </span>
     <span id="live">တိုက်ရိုက်!</span>
   </div>
 
