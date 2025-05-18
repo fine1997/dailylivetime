@@ -29,10 +29,10 @@
       width: 320px;
       height: auto;
       padding: 10px 20px;
-      background-color: #FFFFFF; /* Bright white */
-      border: 3px solid #E0E0E0; /* Light gray border */
+      background-color: #FFFFFF;
+      border: 3px solid #E0E0E0;
       border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* Strong shadow for contrast */
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -40,6 +40,16 @@
       font-weight: bold;
       box-sizing: border-box;
       text-align: center;
+    }
+
+    #date {
+      font-family: 'CustomMyanmarFont1', sans-serif;
+      color: #333;
+      font-size: 18px;
+      margin-bottom: 5px;
+      width: 100%;
+      text-align: center;
+      line-height: 1.3;
     }
 
     #dayPart {
@@ -54,6 +64,13 @@
       color: red;
       font-size: 20px;
       margin-top: 10px;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     #time {
@@ -74,6 +91,7 @@
 </head>
 <body>
   <div class="time-box">
+    <span id="date">၁၈-၀၅-၂၀၂၅, တနင်္ဂနွေနေ့</span>
     <span id="dayPart">အချိန်</span>
     <span id="time">
       <span id="time-hour-minute">12:00</span><span id="time-second">:00</span>
@@ -105,6 +123,16 @@
       const displayMinute = minutes.toString().padStart(2, '0');
       const displaySecond = seconds.toString().padStart(2, '0');
 
+      // Burmese day names
+      const days = ['တနင်္ဂနွေနေ့', 'တနင်္လာနေ့', 'အင်္ဂါနေ့', 'ဗုဒ္ဓဟူးနေ့', 'ကြာသပတေးနေ့', 'သောကြာနေ့', 'စနေနေ့'];
+      const dayName = days[now.getDay()];
+      
+      // Format date in Burmese numerals (DD-MM-YYYY)
+      const day = now.getDate().toString().replace(/\d/g, d => '၀၁၂၃၄၅၆၇၈၉'[d]);
+      const month = (now.getMonth() + 1).toString().replace(/\d/g, d => '၀၁၂၃၄၅၆၇၈၉'[d]);
+      const year = now.getFullYear().toString().replace(/\d/g, d => '၀၁၂၃၄၅၆၇၈၉'[d]);
+      
+      document.getElementById('date').textContent = `${day}-${month}-${year}, ${dayName}`;
       document.getElementById('dayPart').textContent = dayPart;
       document.getElementById('time-hour-minute').textContent = `${displayHour}:${displayMinute}`;
       document.getElementById('time-second').textContent = `:${displaySecond}`;
