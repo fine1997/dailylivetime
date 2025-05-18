@@ -45,7 +45,7 @@
     #date {
       font-family: 'CustomMyanmarFont1', sans-serif;
       color: #333;
-      font-size: 18px;
+      font-size: 15px;
       margin-bottom: 5px;
       width: 100%;
       text-align: center;
@@ -91,7 +91,7 @@
 </head>
 <body>
   <div class="time-box">
-    <span id="date">၁၈-၀၅-၂၀၂၅, တနင်္ဂနွေနေ့</span>
+    <span id="date">၂၀၂၅၊ မေလ ၁၈၊ တနင်္ဂနွေနေ့</span>
     <span id="dayPart">အချိန်</span>
     <span id="time">
       <span id="time-hour-minute">12:00</span><span id="time-second">:00</span>
@@ -127,12 +127,19 @@
       const days = ['တနင်္ဂနွေနေ့', 'တနင်္လာနေ့', 'အင်္ဂါနေ့', 'ဗုဒ္ဓဟူးနေ့', 'ကြာသပတေးနေ့', 'သောကြာနေ့', 'စနေနေ့'];
       const dayName = days[now.getDay()];
       
-      // Format date in Burmese numerals (DD-MM-YYYY)
+      // Burmese month names
+      const months = [
+        'ဇန်နဝါရီလ', 'ဖေဖော်ဝါရီလ', 'မတ်လ', 'ဧပြီလ', 
+        'မေလ', 'ဇွန်လ', 'ဇူလိုင်လ', 'သြဂုတ်လ', 
+        'စက်တင်ဘာလ', 'အောက်တိုဘာလ', 'နိုဝင်ဘာလ', 'ဒီဇင်ဘာလ'
+      ];
+      const monthName = months[now.getMonth()];
+      
+      // Format date in Burmese numerals (၂၀၂၅၊ မေလ ၁၈၊ တနင်္ဂနွေနေ့)
       const day = now.getDate().toString().replace(/\d/g, d => '၀၁၂၃၄၅၆၇၈၉'[d]);
-      const month = (now.getMonth() + 1).toString().replace(/\d/g, d => '၀၁၂၃၄၅၆၇၈၉'[d]);
       const year = now.getFullYear().toString().replace(/\d/g, d => '၀၁၂၃၄၅၆၇၈၉'[d]);
       
-      document.getElementById('date').textContent = `${day}-${month}-${year}, ${dayName}`;
+      document.getElementById('date').textContent = `${year}၊ ${monthName} ${day}၊ ${dayName}`;
       document.getElementById('dayPart').textContent = dayPart;
       document.getElementById('time-hour-minute').textContent = `${displayHour}:${displayMinute}`;
       document.getElementById('time-second').textContent = `:${displaySecond}`;
